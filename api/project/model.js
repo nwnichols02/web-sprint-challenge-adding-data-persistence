@@ -17,5 +17,6 @@ async function addProject(project) {
 
 module.exports = {
     getProject,
+    getProjectById,
     addProject
 }
