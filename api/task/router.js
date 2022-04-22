@@ -3,13 +3,18 @@ const express = require("express");
 const Task = require("./model");
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  Task
-    .getTask()
-    .then((tasks) => {
-      res.status(200).json(tasks);
+router.get("/", async (req, res) => {
+    const tasks = await Task.getTask()
+    const tasksToProcess = tasks.map(task => {
+        return {...task, task_completed: Boolean(task.task_completed)}
     })
-    .catch(next);
+    res.json(tasksToProcess);
+//   Task
+//     .getTask()
+//     .then((tasks) => {
+//       res.status(200).json(tasks);
+//     })
+//     .catch(next);
 });
 
 router.post("/", (req, res, next) => {
